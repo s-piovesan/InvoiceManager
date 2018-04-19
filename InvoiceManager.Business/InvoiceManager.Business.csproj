@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FacturationModel\InvoiceManager.Model.csproj" />
     <ProjectReference Include="..\InvoiceManager.DAL\InvoiceManager.DAL.csproj" />
+    <ProjectReference Include="..\InvoiceManager.Model\InvoiceManager.Model.csproj" />
   </ItemGroup>
 
 </Project>

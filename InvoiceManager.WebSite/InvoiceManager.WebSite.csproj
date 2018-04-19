@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
-    <PackageReference Include="MySql.Data.Entity" Version="6.10.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FacturationModel\InvoiceManager.Model.csproj" />
     <ProjectReference Include="..\InvoiceManager.Business\InvoiceManager.Business.csproj" />
     <ProjectReference Include="..\InvoiceManager.DAL\InvoiceManager.DAL.csproj" />
+    <ProjectReference Include="..\InvoiceManager.Model\InvoiceManager.Model.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,12 +8,11 @@ namespace InvoiceManager.Dal
     using InvoiceManager.Model;
 	using Microsoft.EntityFrameworkCore;
 	using System.Configuration;
-   
 
-    /// <summary>
-    /// Classe de contexte de HrTraxx
-    /// </summary>
-    public class InvoiceManagerContext : DbContext
+	/// <summary>
+	/// Classe de contexte de HrTraxx
+	/// </summary>
+	public class InvoiceManagerContext : DbContext
     {
         /// <summary>
         /// Initialise une nouvelle instance de la classe <see cref="InvoiceManagerContext"/>.

@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data.Entity" Version="6.10.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FacturationModel\InvoiceManager.Model.csproj" />
+    <ProjectReference Include="..\InvoiceManager.Model\InvoiceManager.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
