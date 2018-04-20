@@ -18,7 +18,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Facturation manager</a>
 		<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap">
@@ -32,92 +32,50 @@
 				<div class="sidebar-sticky">
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link active" href="#">
-								<span data-feather="home"></span>
-								Dashboard <span class="sr-only">(current)</span>
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+								<span class="fas fa-home"></span>
+								Accueil
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="file"></span>
-								Orders
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Invoices">
+								<span class="fas fa-file-alt"></span>
+								Factures
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="shopping-cart"></span>
-								Products
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Customers">
+								<span class="fas fa-building"></span>
+								Clients
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="users"></span>
-								Customers
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Products">
+								<span class="fas fa-shopping-bag"></span>
+								Produits
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="bar-chart-2"></span>
-								Reports
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Barcodes">
+								<span class="fas fa-barcode"></span>
+								Code-Barres
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="layers"></span>
-								Integrations
-							</a>
-						</li>
-					</ul>
-					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-						<span>Saved reports</span>
-						<a class="d-flex align-items-center text-muted" href="#">
-							<span data-feather="plus-circle"></span>
-						</a>
-					</h6>
-					<ul class="nav flex-column mb-2">
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="file-text"></span>
-								Current month
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="file-text"></span>
-								Last quarter
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="file-text"></span>
-								Social engagement
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-								<span data-feather="file-text"></span>
-								Year-end sale
+							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="CustomerPrices">
+								<span class="fas fa-building"></span>
+								Prix spécifique par clients
 							</a>
 						</li>
 					</ul>
 				</div>
 			</nav>
+			
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">Dashboard</h1>
-					<div class="btn-toolbar mb-2 mb-md-0">
-						<div class="btn-group mr-2">
-							<button class="btn btn-sm btn-outline-secondary">Share</button>
-							<button class="btn btn-sm btn-outline-secondary">Export</button>
-						</div>
-						<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-							<span data-feather="calendar"></span>
-							This week
-						</button>
-					</div>
-				</div>
 				@RenderBody()
 				
+
+
 			</main>
 		</div>
 	</div>
@@ -127,6 +85,7 @@
 		<script src="~/lib/jquery/dist/jquery.js"></script>
 		<script src="~/js/site.js" asp-append-version="true"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 	</environment>
 	<environment exclude="Development">
