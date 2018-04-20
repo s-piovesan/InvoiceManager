@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="MainManager.cs">
+// <copyright file="CustomerManager.cs">
 //     Sébastien PIOVESAN ©.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -49,7 +49,7 @@ namespace InvoiceManager.Business
 		/// </summary>
 		/// <param name="customer">client à ajouter</param>
 		/// <returns>Vrai si le client a bien été ajoutée, faux sinon</returns>
-		public bool AddCompany(Customer customer)
+		public bool AddCustomer(Customer customer)
 		{
 			return this.CustomerDAL.Insert(customer);
 		}
@@ -57,9 +57,9 @@ namespace InvoiceManager.Business
 		/// <summary>
 		/// Mise à jour d'un client
 		/// </summary>
-		/// <param name="company">Client à modifier</param>
+		/// <param name="customer">Client à modifier</param>
 		/// <returns>Vrai si le client a bien été modifié, faux sinon</returns>
-		public bool UpdateCompany(Customer customer)
+		public bool UpdateCustomer(Customer customer)
 		{
 			return this.CustomerDAL.Update(customer);
 		}
@@ -67,11 +67,11 @@ namespace InvoiceManager.Business
 		/// <summary>
 		/// Suppression d'un client
 		/// </summary>
-		/// <param name="company)">Client à supprimer</param>
+		/// <param name="customer">Client à supprimer</param>
 		/// <returns>Vrai si  le client a bien été supprimé, faux sinon</returns>
-		public bool DeleteCompany(Customer company)
+		public bool DeleteCustomer(Customer customer)
 		{
-			return this.CustomerDAL.Delete(company);
+			return this.CustomerDAL.Delete(customer);
 		}
 
 	}
