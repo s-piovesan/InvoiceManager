@@ -1,0 +1,41 @@
+@model IEnumerable<FacturationWebSite.Models.Barcode>
+
+@{
+    ViewData["Title"] = "Liste";
+}
+
+<h2>Liste</h2>
+
+<p>
+    <a asp-action="Create">Ajouter</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BarcodeId">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.BarcodeId">D&eacute;tail</a> |
+                <a asp-action="Delete" asp-route-id="@item.BarcodeId">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

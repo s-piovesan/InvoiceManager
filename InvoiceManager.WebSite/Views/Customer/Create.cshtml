@@ -1,0 +1,58 @@
+@model FacturationWebSite.Models.Customer
+
+@{
+    ViewData["Title"] = "Ajouter";
+}
+
+<h2>Ajouter</h2>
+
+<h4>Client</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="address" class="control-label"></label>
+                <input asp-for="address" class="form-control" />
+                <span asp-validation-for="address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="address2" class="control-label"></label>
+                <input asp-for="address2" class="form-control" />
+                <span asp-validation-for="address2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="address3" class="control-label"></label>
+                <input asp-for="address3" class="form-control" />
+                <span asp-validation-for="address3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="zipcode" class="control-label"></label>
+                <input asp-for="zipcode" class="form-control" />
+                <span asp-validation-for="zipcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="city" class="control-label"></label>
+                <input asp-for="city" class="form-control" />
+                <span asp-validation-for="city" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ajouter" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

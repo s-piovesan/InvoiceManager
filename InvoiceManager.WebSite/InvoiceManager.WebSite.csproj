@@ -2,20 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>013648b7-b083-4ab4-a2a5-05b9d1430b9a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
-  </ItemGroup>
-
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="2.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+  </ItemGroup> 
+  
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\InvoiceManager.Business\InvoiceManager.Business.csproj" />
-    <ProjectReference Include="..\InvoiceManager.DAL\InvoiceManager.DAL.csproj" />
-    <ProjectReference Include="..\InvoiceManager.Model\InvoiceManager.Model.csproj" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" /> 	
   </ItemGroup>
 
 </Project>

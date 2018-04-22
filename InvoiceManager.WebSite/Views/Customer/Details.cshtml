@@ -1,0 +1,54 @@
+@model FacturationWebSite.Models.Customer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.address2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.address2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.address3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.address3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.zipcode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.city)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.city)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CustomerId">Modifier</a> |
+    <a asp-action="Index">Retour</a>
+</div>

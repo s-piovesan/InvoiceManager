@@ -1,0 +1,65 @@
+@model IEnumerable<FacturationWebSite.Models.Invoice>
+
+@{
+    ViewData["Title"] = "Liste";
+}
+
+<h2>Liste</h2>
+
+<p>
+    <a asp-action="Create">Ajouter</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ref)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartPeriod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndPeriod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ref)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InvoiceId">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.InvoiceId">D&eacute;tail</a> |
+                <a asp-action="Delete" asp-route-id="@item.InvoiceId">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

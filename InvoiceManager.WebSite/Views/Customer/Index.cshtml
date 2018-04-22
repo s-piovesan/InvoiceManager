@@ -1,0 +1,65 @@
+@model IEnumerable<FacturationWebSite.Models.Customer>
+
+@{
+    ViewData["Title"] = "Liste";
+}
+
+<h2>Liste</h2>
+
+<p>
+    <a asp-action="Create">Ajouter</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.address2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.address3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.zipcode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.city)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zipcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.city)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CustomerId">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.CustomerId">D&eacute;tail</a> |
+                <a asp-action="Delete" asp-route-id="@item.CustomerId">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

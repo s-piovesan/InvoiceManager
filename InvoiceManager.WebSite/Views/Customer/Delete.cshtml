@@ -1,0 +1,57 @@
+@model FacturationWebSite.Models.Customer
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.address2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.address2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.address3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.address3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.zipcode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.city)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.city)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CustomerId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Retour</a>
+    </form>
+</div>

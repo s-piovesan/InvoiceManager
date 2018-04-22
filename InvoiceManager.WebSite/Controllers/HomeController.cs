@@ -29,29 +29,6 @@ namespace FacturationWebSite.Controllers
             return View();
         }
 
-		public IActionResult Barcodes()
-		{
-			return View();
-		}
-
-		public IActionResult Customers()
-		{
-			return View();
-		}
-
-		public IActionResult CustomerPrices()
-		{
-			return View();
-		}
-
-		public IActionResult Products()
-		{
-			return View();
-		}
-		public IActionResult Invoices()
-		{
-			return View();
-		}
 
 		public IActionResult Error()
         {
