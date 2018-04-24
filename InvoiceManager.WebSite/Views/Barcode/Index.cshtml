@@ -7,7 +7,7 @@
 <h2>Code-barres</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-secondary">Ajouter</a>
+    <a asp-action="Create" class="btn btn-success fa fa-plus"></a>
 </p>
 <table class="table">
     <thead>
@@ -31,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.Product.ProductId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BarcodeId">Modifier</a> |
-                <a asp-action="Details" asp-route-id="@item.BarcodeId">D&eacute;tail</a> |
-                <a asp-action="Delete" asp-route-id="@item.BarcodeId">Supprimer</a>
+                <a class="btn btn-warning fa fa-edit" asp-action="Edit"asp-route-id="@item.BarcodeId"></a> |
+                <a class="btn btn-info fa fa-eye" asp-action="Details"asp-route-id="@item.BarcodeId"></a> |
+                <a class="btn btn-danger fa fa-trash" asp-action="Delete"asp-route-id="@item.BarcodeId"></a>
             </td>
         </tr>
 }
