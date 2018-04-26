@@ -47,7 +47,7 @@ namespace InvoiceManager.WebSite.Controllers
         // GET: Invoice/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "CustomerId");
+            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace InvoiceManager.WebSite.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "CustomerId", invoice.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name", invoice.CustomerId);
             return View(invoice);
         }
 
@@ -81,7 +81,7 @@ namespace InvoiceManager.WebSite.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "CustomerId", invoice.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name", invoice.CustomerId);
             return View(invoice);
         }
 
@@ -117,7 +117,7 @@ namespace InvoiceManager.WebSite.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "CustomerId", invoice.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name", invoice.CustomerId);
             return View(invoice);
         }
 

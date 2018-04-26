@@ -48,8 +48,8 @@ namespace InvoiceManager.WebSite.Controllers
         // GET: Barcode/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "CustomerId");
-            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "ProductId");
+            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name");
+            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "Description");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace InvoiceManager.WebSite.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "CustomerId", barcode.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "ProductId", barcode.ProductId);
+            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name", barcode.CustomerId);
+            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "Description", barcode.ProductId);
             return View(barcode);
         }
 
@@ -84,8 +84,8 @@ namespace InvoiceManager.WebSite.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "CustomerId", barcode.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "ProductId", barcode.ProductId);
+            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name", barcode.CustomerId);
+            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "Description", barcode.ProductId);
             return View(barcode);
         }
 
@@ -121,8 +121,8 @@ namespace InvoiceManager.WebSite.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "CustomerId", barcode.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "ProductId", barcode.ProductId);
+            ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name", barcode.CustomerId);
+            ViewData["ProductId"] = new SelectList(_context.Set<Product>(), "ProductId", "Description", barcode.ProductId);
             return View(barcode);
         }
 

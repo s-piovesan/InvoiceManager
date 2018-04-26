@@ -49,10 +49,10 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Invoice.InvoiceId)
+                @Html.DisplayFor(modelItem => item.Invoice.Ref)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Product.ProductId)
+                @Html.DisplayFor(modelItem => item.Product.Description)
             </td>
             <td>
                 <a class="btn btn-warning fa fa-edit" asp-action="Edit"asp-route-id="@item.InvoiceLineId"></a> |
