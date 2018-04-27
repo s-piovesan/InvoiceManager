@@ -33,6 +33,7 @@ namespace FacturationWebSite.Models
         /// Prix du produit
         /// </summary>
         [DisplayName("Prix")]
-        public double Price { get; set; }
+		[DataType(DataType.Currency)]
+		public double Price { get; set; }
     }
 }

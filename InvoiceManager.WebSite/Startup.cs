@@ -7,57 +7,68 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace FacturationWebSite
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	public class Startup
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
+		public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc();
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddMvc();
 
-            services.AddDbContext<MvcAppContext>(options => options.UseSqlite("Data Source=invoice.db"));
+			services.AddDbContext<MvcAppContext>(options => options.UseSqlite("Data Source=invoice.db"));
+		}
 
-            services.AddDbContext<MvcAppContext>(options => options.UseSqlite("Data Source=invoice.db"));
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		{
+			var defaultDateCulture = "fr-FR";
+			var ci = new CultureInfo(defaultDateCulture);
+			ci.NumberFormat.NumberDecimalSeparator = ".";
+			ci.NumberFormat.CurrencyDecimalSeparator = ".";
 
-            services.AddDbContext<MvcAppContext>(options => options.UseSqlite("Data Source=invoice.db"));
+			// Configure the Localization middleware
+			app.UseRequestLocalization(new RequestLocalizationOptions
+			{
+				DefaultRequestCulture = new RequestCulture(ci),
+				SupportedCultures = new List<CultureInfo>
+				{
+					ci,
+				},
+				SupportedUICultures = new List<CultureInfo>
+				{
+					ci,
+				}
+			});
 
-            services.AddDbContext<MvcAppContext>(options => options.UseSqlite("Data Source=invoice.db"));
+			if (env.IsDevelopment())
+			{
+				app.UseBrowserLink();
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
 
-            services.AddDbContext<MvcAppContext>(options => options.UseSqlite("Data Source=invoice.db"));
+			app.UseStaticFiles();
 
-            services.AddDbContext<MvcAppContext>(options => options.UseSqlite("Data Source=invoice.db"));
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
-            app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-        }
-    }
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+			});
+		}
+	}
 }
