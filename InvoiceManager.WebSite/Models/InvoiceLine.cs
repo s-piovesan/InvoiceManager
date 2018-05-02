@@ -35,6 +35,17 @@ namespace FacturationWebSite.Models
 		public Invoice Invoice { get; set; }
 
 		/// <summary>
+		/// Identifiant de la livraison
+		/// </summary>
+		public int DeliveryId { get; set; }
+
+		/// <summary>
+		/// Detail de la livraison
+		/// </summary>
+		[ForeignKey("DeliveryId")]
+		public Delivery Delivery { get; set; }
+
+		/// <summary>
 		/// Identifiant du produit
 		/// </summary>
 		public int ProductId { get; set; }

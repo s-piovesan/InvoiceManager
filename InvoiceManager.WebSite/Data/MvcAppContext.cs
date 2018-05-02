@@ -17,4 +17,6 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<FacturationWebSite.Models.InvoiceLine> InvoiceLine { get; set; }
         public DbSet<FacturationWebSite.Models.Barcode> Barcode { get; set; }
         public DbSet<FacturationWebSite.Models.Product> Product { get; set; }
+		public DbSet<FacturationWebSite.Models.Delivery> Deliveries { get; set; }
+
 }

@@ -1,0 +1,21 @@
+﻿@model FacturationWebSite.Models.HomeViewModel
+
+<div class="panel-heading">Saisie d'une livraison</div>
+<div class="panel-body">
+	<form asp-action="NewLine">
+		<div class="form-group">
+			<label asp-for="DeliveryId" class="control-label"></label>
+			@Html.DropDownListFor(m => m.DeliveryId, new SelectList((List<SelectListItem>)ViewData["DateList"], "Value", "Text", (int)ViewData["NearestDate"]))
+		</div>
+		<div class="row">
+			<div class="col-lg-9">
+				<input input asp-for="Barcode" class="form-control" placeholder="Saisir le code barre..." type="text" autofocus />
+			</div>
+			<div class="col-lg-2">
+				<input type="submit" value="Scanner" class="btn btn-primary" />
+			</div>
+		</div>
+		<div class="alert alert-primary" style="margin:1rem;" role="alert">
+		</div>
+	</form>
+</div>

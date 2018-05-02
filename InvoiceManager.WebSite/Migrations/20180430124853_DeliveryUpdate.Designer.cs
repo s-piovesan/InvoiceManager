@@ -11,9 +11,10 @@ using System;
 namespace InvoiceManager.WebSite.Migrations
 {
     [DbContext(typeof(MvcAppContext))]
-    partial class MvcAppContextModelSnapshot : ModelSnapshot
+    [Migration("20180430124853_DeliveryUpdate")]
+    partial class DeliveryUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

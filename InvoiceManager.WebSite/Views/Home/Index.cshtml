@@ -1,4 +1,6 @@
-﻿@{
+﻿@model FacturationWebSite.Models.HomeViewModel
+
+@{
 	ViewData["Title"] = "Home Page";
 }
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -15,19 +17,7 @@
 <div class="panel-group">
 	<div class="col-lg-6">
 		<div class="panel panel-primary">
-			<div class="panel-heading">Saisie d'une livraison</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-9">
-						<input id="scanner_input" class="form-control" placeholder="Saisir le code barre..." type="text" autofocus/>
-					</div>
-					<div class="col-lg-2">
-						<button class="btn btn-primary" type="button">Scanner</button>
-					</div>
-				</div>
-				<div class="alert alert-primary" style="margin:1rem;" role="alert">
-				</div>
-			</div>
+			@await Html.PartialAsync("NewLine.cshtml", Model, this.ViewData)
 		</div>
 	</div>
 	<div class="col-lg-6">
