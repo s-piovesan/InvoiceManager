@@ -31,3 +31,32 @@
 
 </div>
 
+@section Scripts {
+	<script type="text/javascript">
+        function sendData() {
+			var token = $('input[name="__RequestVerificationToken"]', $('#NewLineForm')).val();
+			var myData = { DeliveryId: $("#DeliveryId").val(), Barcode: $("#Barcode").val() };
+            var dataWithAntiforgeryToken = $.extend(myData, { '__RequestVerificationToken': token });
+
+            $.ajax({
+                url: "/Home/NewLine",
+                type: "POST",
+                data: dataWithAntiforgeryToken,
+                success: function (data) {
+					$(".alertNewLine").empty();
+					if (data.errorCode == 0) {
+						$(".alertNewLine").html(data.successMessage);
+					} else {
+						$(".alertNewLine").html(data.errorMessage);
+					}
+                },
+                error: function () {
+					$(".alertNewLine").empty();
+                }
+            });
+        }
+		$(document).ready(function () {
+			$(".scanbutton").on('click', sendData);
+		});
+	</script>
+}
