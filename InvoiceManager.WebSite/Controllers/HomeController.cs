@@ -93,10 +93,9 @@ namespace FacturationWebSite.Controllers
 				}
 				else
 				{
-					invoice = new Invoice();
 
 					invoice = new Invoice();
-					invoice.Ref = "test";
+					invoice.Ref = GetInvoiceRef();
 					invoice.StartPeriod = startMonth.ToString("dd/MM/yyyy");
 					invoice.EndPeriod = endMonth.ToString("dd/MM/yyyy");
 					invoice.CustomerId = barcode.CustomerId;
@@ -135,6 +134,27 @@ namespace FacturationWebSite.Controllers
 			
 		
 			return Json(returnVal);
+		}
+
+		private string GetInvoiceRef()
+		{
+			var invoiceRefs = _context.Invoice.Select(i => i.Ref);
+			var reference = 0;
+
+			foreach (var invoiceRef in invoiceRefs) {
+				var refNum = invoiceRef.Substring((invoiceRef.Length - 6));
+				var num = Int32.Parse(refNum);
+				if (num > reference)
+				{
+					reference = num;
+				}
+			}
+
+			reference = reference + 1;
+
+			return String.Format("FAC_{0}", reference.ToString("000000"));
+
+
 		}
 
 		public IActionResult About()

@@ -1,54 +1,154 @@
-@model FacturationWebSite.Models.Invoice
-
+@model FacturationWebSite.Models.InvoiceViewModel
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
-
-<h2>Details</h2>
-
+<h2>Detail</h2>
 <div>
-    <h4>Invoice</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Ref)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ref)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StartPeriod)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StartPeriod)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EndPeriod)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EndPeriod)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Customer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Customer.Name)
-        </dd>
-    </dl>
+	<h4>Facture</h4>
+	<hr />
+	<div class="fixed-action-btn">
+		<button class="btn btn-success fa fa-2x fa-print btn_print"> Imprimer</button>
+	</div>
+	<div id="printSection">
+		<div id="invoice-template" style="width:595px;height:842px;border:1px solid black" class="card-body">
+			<!--startprint-->
+			<!-- Invoice Company Details -->
+			<div id="invoice-company-details" class="row">
+				<div class="col-md-6 col-sm-12 text-center text-md-left">
+					<div class="media">
+						<!--<img src="images/generic-logo.png" alt="company logo" class="">-->
+						<div class="media-body">
+							<ul class="ml-2 px-0 list-unstyled">
+								<li class="text-bold-800">Martine PIOVESAN</li>
+								<li>04 rue Gicquel</li>
+								<li>35580 GUIGNEN</li>
+								<li>02 99 92 25 79</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-12 text-center text-md-right">
+					<h2>FACTURE</h2>
+					<p class="pb-3"># @Html.DisplayFor(model => model.Invoice.Ref)</p>
+					<ul class="px-0 list-unstyled">
+						<li>Montant d&ucirc;</li>
+						<li class="lead text-bold-800">@Model.Total &euro;</li>
+					</ul>
+				</div>
+			</div>
+			<!--/ Invoice Company Details -->
+			<!-- Invoice Customer Details -->
+			<div id="invoice-customer-details" class="row pt-2">
+				<div class="col-sm-12 text-center text-md-left">
+					<p class="text-muted">Destinataire</p>
+				</div>
+				<div class="col-md-6 col-sm-12 text-center text-md-left">
+					<ul class="px-0 list-unstyled">
+						<li class="text-bold-800">@Html.DisplayFor(model => model.Invoice.Customer.Name)</li>
+						<li>@Html.DisplayFor(model => model.Invoice.Customer.address)</li>
+						<li>@Html.DisplayFor(model => model.Invoice.Customer.zipcode) @Html.DisplayFor(model => model.Invoice.Customer.city)</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-sm-12 text-center text-md-right">
+					<p>
+						<span class="text-muted">Date :</span> 06/05/2016
+					</p>
+					<p>
+						<span class="text-muted">Date de paiement :</span> 10/05/2016
+					</p>
+				</div>
+			</div>
+			<!--/ Invoice Customer Details -->
+			<!-- Invoice Items Details -->
+			<div id="invoice-items-details" class="pt-2">
+				<div class="row">
+					<div class="table-responsive col-sm-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Libell&eacute;</th>
+									<th>Quantit&eacute;</th>
+									<th>Prix unitaire</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var invoiceLine in Model.InvoiceLines)
+								{
+									<tr>
+										<td>@invoiceLine.Description</td>
+										<td>@invoiceLine.Quantity</td>
+										<td>@invoiceLine.Price &euro;</td>
+										<td>@(invoiceLine.Price * invoiceLine.Quantity) &euro;</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-7 col-sm-12 text-center text-md-left">
+
+					</div>
+					<div class="col-md-5 col-sm-12">
+						<p class="lead">Total d&ucirc;</p>
+						<div class="table-responsive">
+							<table class="table">
+								<tbody>
+									<tr class="bg-grey bg-lighten-4">
+										<td class="text-bold-800">Total</td>
+										<td class="text-bold-800 text-right">@Model.Total &euro;</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Invoice Footer -->
+			<div id="invoice-footer">
+				<div class="row">
+					<div class="col-md-7 col-sm-12">
+						<h6>Termes &amp; Conditions</h6>
+						<p>bla bla bla</p>
+					</div>
+				</div>
+			</div>
+			<!--/ Invoice Footer -->
+			<!--endprint-->
+		</div>
+	</div>
+
+
 </div>
 <div>
-    <a class="btn btn-primary fa fa-edit" asp-route-id="@Model.InvoiceId"></a> |
-    <a class="btn btn-secondary" asp-action="Index">Retour</a>
+	<a class="btn btn-secondary" asp-action="Index">Retour</a>
 </div>
+
+@section Scripts {
+<script language="JavaScript" type="text/JavaScript">
+	function doPrint() {
+
+		var printContents = document.getElementById('printSection').innerHTML;
+		popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+		popupWin.document.open();
+		popupWin.document.write(
+			'<html>' +
+			'<head>' +
+			'<title>Print tab</title>' +
+					'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">' +
+					'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">' +
+					'<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>' +
+					'</head>'+
+					'<body onload="window.print();window.close()">' + printContents +
+					'</body>'+
+				'</html>');
+				popupWin.document.close();
+			
+		}
+
+	$(document).ready(function () {
+		$(".btn_print").on('click', doPrint);
+	});
+	</script>
+}

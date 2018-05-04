@@ -36,12 +36,20 @@ namespace InvoiceManager.WebSite.Controllers
             var invoice = await _context.Invoice
                 .Include(i => i.Customer)
                 .SingleOrDefaultAsync(m => m.InvoiceId == id);
-            if (invoice == null)
+
+			var invoiceLine = _context.InvoiceLine.Include(il => il.Delivery).Where(il => il.InvoiceId == invoice.InvoiceId).ToList();
+
+			if (invoice == null)
             {
                 return NotFound();
             }
 
-            return View(invoice);
+			var invoiceViewModel = new InvoiceViewModel();
+			invoiceViewModel.Invoice = invoice;
+			invoiceViewModel.InvoiceLines = invoiceLine;
+			invoiceViewModel.Total = invoiceLine.Sum(il => (il.Price * il.Quantity));
+
+			return View(invoiceViewModel);
         }
 
         // GET: Invoice/Create
