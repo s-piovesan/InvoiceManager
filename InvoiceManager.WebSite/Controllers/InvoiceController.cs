@@ -45,11 +45,14 @@ namespace InvoiceManager.WebSite.Controllers
             }
 
 			var invoiceViewModel = new InvoiceViewModel();
+
 			invoiceViewModel.Invoice = invoice;
 			invoiceViewModel.InvoiceLines = invoiceLine;
-			invoiceViewModel.Total = invoiceLine.Sum(il => (il.Price * il.Quantity));
+            invoiceViewModel.Subtotal = invoiceLine.Sum(il => (il.Price * il.Quantity));
+            invoiceViewModel.Total = invoiceViewModel.Subtotal + invoiceViewModel.Discount;
+            invoiceViewModel.Discount = 0;
 
-			return View(invoiceViewModel);
+            return View(invoiceViewModel);
         }
 
         // GET: Invoice/Create

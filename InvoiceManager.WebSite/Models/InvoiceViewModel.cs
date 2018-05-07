@@ -9,5 +9,7 @@ namespace FacturationWebSite.Models
 		public Invoice Invoice { get; set; }
 		public List<InvoiceLine> InvoiceLines { get; set; }
 		public double Total { get; set; }
-	}
+        public double Subtotal { get; set; }
+        public double Discount { get; set; }
+    }
 }
