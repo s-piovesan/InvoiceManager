@@ -1,174 +1,26 @@
 @model FacturationWebSite.Models.InvoiceViewModel
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 <link rel="stylesheet" href="/css/invoice.css" />
 <h2>Detail</h2>
 <div>
-    <h4>Facture</h4>
-    <hr />
+	<h4>Facture</h4>
+	<hr />
 
-    <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <div id="printSection" style="width:595px;height:842px;border:1px solid black">
-                <div id="invoice-template" class="card-body">
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 header">
-                                <h1>FACTURE<strong> @Html.DisplayFor(model => model.Invoice.Ref)</strong></h1>
-                                <p>@DateTime.Now.ToString("D")</p>
-                                <p>Paiement attendu pour @DateTime.Now.ToString("D")</p>
-                            </div>
-                            <div class="col-md-12 col-sm-12 panelPart">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 panelPart">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                Entreprise
-                                            </div>
-                                            <div class="panel-footer">
-                                                <p><strong>Martine PIOVESAN</strong></p>
-                                                <p>
-                                                    04 rue Gicquel<br />
-                                                    35580 GUIGNEN<br />
-                                                    02 99 92 25 79
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 panelPart">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                Client
-                                            </div>
-                                            <div class="panel-footer">
-                                                <p><strong>@Html.DisplayFor(model => model.Invoice.Customer.Name)</strong></p>
-                                                <p>
-                                                    @Html.DisplayFor(model => model.Invoice.Customer.address)<br />
-                                                @Html.DisplayFor(model => model.Invoice.Customer.zipcode) @Html.DisplayFor(model => model.Invoice.Customer.city)
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 tableSection">
-                            <table class="table text-center">
-                                <thead>
-                                    <tr class="tableHead">
-                                        <th>Libell&eacute;</th>
-                                        <th style="width:30px;" class="text-md-right">Quantit&eacute;</th>
-                                        <th style="width:100px;" class="text-md-right">Prix unitaire</th>
-                                        <th style="width:100px;" class="text-md-right">TOTAL</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{
-                                        var lastDeliveryId = 0;
-
-                                        foreach (var invoiceLine in Model.InvoiceLines)
-                                        {
-
-                                            if (invoiceLine.DeliveryId != lastDeliveryId)
-                                            {
-                                                <tr>
-                                                    <th colspan="4" class="delivery">Livraison du @invoiceLine.Delivery.Date.ToString("D")</th>
-                                                </tr>
-                                                lastDeliveryId = invoiceLine.DeliveryId;
-                                            }
-                                            Double total = (invoiceLine.Price * invoiceLine.Quantity);
-                                            <tr>
-                                                <td>@invoiceLine.Description</td>
-                                                <td class="text-md-right">@invoiceLine.Quantity</td>
-                                                <td class="text-md-right">@invoiceLine.Price.ToString("C")</td>
-                                                <td class="text-md-right">@total.ToString("C")</td>
-                                            </tr>
-                                        }
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-12 col-sm-12 lastSectionleft ">
-                            <div class="row">
-                                <div class="col-md-7 col-sm-6 Sectionleft">
-                                    <p><i>Notes</i></p>
-                                    <span><i>bla bla bla</i></span>
-                                </div>
-                                <div class="col-md-5 col-sm-6">
-                                    <div class="panel panel-default">
-                                        <div class="panel-body lastPanel">
-                                            TOTAL D&Ucirc;
-                                        </div>
-                                        <div class="panel-footer lastFooter">
-                                            <div class="row">
-                                                <div class="col-md-7 col-sm-6 col-xs-6 panelLastLeft">
-                                                    <p>
-                                                        Sous-Total<br />
-                                                        Remise<br />
-                                                        <strong>TOTAL</strong>
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-5 col-sm-6 col-xs-6 panelLastRight text-md-right">
-                                                    <p>
-                                                        @Model.Subtotal.ToString("C")<br />
-                                                        @Model.Discount.ToString("C")<br />
-                                                        <strong>@Model.Total.ToString("C")</strong>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-md-6 col-sm-12 text-center text-md-right">
-    <div class="fixed-action-btn">
-        <button class="btn btn-success btn_print"><i class="fa fa-print"></i> Imprimer</button>
-    </div>
-</div>
+	<div class="row">
+		<div class="col-md-6 col-sm-12">
+			<div id="printSection" style="width:595px;height:842px;border:1px solid black">
+				@await Html.PartialAsync("Invoice.cshtml", Model, this.ViewData)
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-sm-12 text-center text-md-right">
+		<div class="fixed-action-btn">
+			<a class="btn btn-success btn_print" asp-action="Print" asp-route-id="@Model.Invoice.InvoiceId" target="_blank" ><i class="fa fa-print"></i> Imprimer</a>
+		</div>
+	</div>
 </div>
 <div>
-    <a class="btn btn-secondary" asp-action="Index">Retour</a>
+	<a class="btn btn-secondary" asp-action="Index">Retour</a>
 </div>
-
-@section Scripts {
-<script language="JavaScript" type="text/JavaScript">
-    function doPrint() {
-
-        var printContents = document.getElementById('printSection').innerHTML;
-        popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-        popupWin.document.open();
-
-
-        var html = '<html>';
-        html += '   <head>';
-        html += '       <title>Print tab</title>';
-        html += '       <link rel="stylesheet" media="print" href="/css/dashboard.css">';
-        html += '       <script src="/lib/jquery/dist/jquery.js"></scr' + 'ipt>';
-        html += '       <link rel="stylesheet" media="print" type="text/css" href="/css/invoice.css" />';
-        html += '       <link rel="stylesheet" media="print" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"></link>';
-        html += '       <link rel="stylesheet" media="print" type="text/css" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"></link>';
-        html += '       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></scr' + 'ipt>';
-        html += '   </head>';
-        html += '   <body onload="window.print();window.close()"> ';
-        html += printContents; 
-        html += '   </body>';
-        html += '</html>';
-
-            popupWin.document.write(html);
-            popupWin.document.close();
-
-        }
-
-        $(document).ready(function () {
-            $(".btn_print").on('click', doPrint);
-        });
-    </script>
-}

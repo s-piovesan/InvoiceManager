@@ -55,8 +55,40 @@ namespace InvoiceManager.WebSite.Controllers
             return View(invoiceViewModel);
         }
 
-        // GET: Invoice/Create
-        public IActionResult Create()
+		// GET: Invoice/Print
+		[ViewLayout("_PrintLayout")]
+		public async Task<IActionResult> Print(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var invoice = await _context.Invoice
+				.Include(i => i.Customer)
+				.SingleOrDefaultAsync(m => m.InvoiceId == id);
+
+			var invoiceLine = _context.InvoiceLine.Include(il => il.Delivery).Where(il => il.InvoiceId == invoice.InvoiceId).ToList();
+
+			if (invoice == null)
+			{
+				return NotFound();
+			}
+
+			var invoiceViewModel = new InvoiceViewModel();
+
+			invoiceViewModel.Invoice = invoice;
+			invoiceViewModel.InvoiceLines = invoiceLine;
+			invoiceViewModel.Subtotal = invoiceLine.Sum(il => (il.Price * il.Quantity));
+			invoiceViewModel.Total = invoiceViewModel.Subtotal + invoiceViewModel.Discount;
+			invoiceViewModel.Discount = 0;
+
+			return View(invoiceViewModel);
+		}
+		
+
+		// GET: Invoice/Create
+		public IActionResult Create()
         {
             ViewData["CustomerId"] = new SelectList(_context.Set<Customer>(), "CustomerId", "Name");
             return View();
