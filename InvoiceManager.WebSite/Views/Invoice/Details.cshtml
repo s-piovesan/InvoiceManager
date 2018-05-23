@@ -14,12 +14,13 @@
 				@await Html.PartialAsync("Invoice.cshtml", Model, this.ViewData)
 			</div>
 		</div>
-	</div>
-	<div class="col-md-6 col-sm-12 text-center text-md-right">
-		<div class="fixed-action-btn">
-			<a class="btn btn-success btn_print" asp-action="Print" asp-route-id="@Model.Invoice.InvoiceId" target="_blank" ><i class="fa fa-print"></i> Imprimer</a>
+		<div class="col-md-6 col-sm-12">
+			<div class="fixed-action-btn">
+				<a class="btn btn-success btn_print" asp-action="Print" asp-route-id="@Model.Invoice.InvoiceId" target="_blank"><i class="fa fa-print"></i> Imprimer</a>
+			</div>
 		</div>
 	</div>
+	
 </div>
 <div>
 	<a class="btn btn-secondary" asp-action="Index">Retour</a>

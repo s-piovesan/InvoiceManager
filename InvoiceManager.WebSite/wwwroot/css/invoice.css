@@ -1,25 +1,59 @@
 @media screen, print {
 	.container {
 		-webkit-print-color-adjust: exact;
+		font-family: "Segoe UI";
 	}
-	.header h1 {
+	.top .header h1 {
 		color: #fff;
 		margin: 0px;
 		font-size: 28px;
 	}
 
-	.header {
+	.top .header {
 		background-color: #3B99B3 !important;
 		border: 1px solid #417482;
 		padding: 10px;
 		margin-bottom: 10px;
 	}
 
-		.header p {
+		.top .header p {
 			margin: 0px;
 			font-size: 10px;
 			color: #88CFE3;
 		}
+
+	.top .panelCompany {
+		float: left;
+		margin-left:5%;
+		width: 33%;
+		border: 1px solid #3B99B3;
+	}
+
+		.top .panelCompany .title {
+			text-align: center;
+			font-size: 15px;
+			font-weight: bold;
+			background-color: #3B99B3 !important;
+			color: #fff;
+		}
+
+	.top .panelCustomer {
+		float: right;
+		margin-right: 5%;
+		width: 33%;
+		border: 1px solid #3B99B3;
+	}
+		.top .panelCustomer .title {
+			text-align: center;
+			font-size: 15px;
+			font-weight: bold;
+			background-color: #3B99B3 !important;
+			color: #fff;
+		}
+
+	.top {
+		clear:both;
+	}
 
 	.contentSection {
 		background-color: #fff;
@@ -72,38 +106,46 @@
 		}
 
 	.tableSection {
+		padding-top: 10px;
+		margin-bottom: 10px;
 		background-color: #fff;
+		clear: both;
+		overflow-x: auto;
 	}
 
 		.tableSection h1 {
-			font-size: 18px;
+			font-size: 15px;
 			margin: 0px;
 		}
 
-	.table th {
+	table th {
 		background-color: #555555 !important;
 		color: #fff;
-		padding: .5rem !important;
+		padding: 0.3rem !important;
+		font-size:13px;
+		line-height:1em;
 	}
 
-		.table th.delivery {
+		table th.delivery {
 			background-color: #D3D3D3 !important;
 			color: #000;
 		}
 
-	.table {
+	table {
+		width:100%;
 		padding-bottom: 10px;
 		margin: 0px;
 		border: 1px solid #DDDDDD;
 	}
 
-		.table td:nth-child(2) {
+		table td:nth-child(2) {
 			text-align: left;
 		}
 
-		.table td {
+		table td {
 			height: 100%;
 			padding: .5rem !important;
+			font-size: 11px;
 		}
 
 	.bg {
@@ -135,5 +177,39 @@
 	.panelLastLeft p, .panelLastRight p {
 		font-size: 11px;
 		padding: 5px 2px 5px 10px;
+	}
+
+
+	.bottom .Sectionleft {
+		float:left;
+		width:60%;
+	}
+
+	.bottom .panelTotal {
+		line-height: 1.5em;
+		float: right;
+		width: 35%;
+	}
+
+		.bottom .panelTotal .lastPanel {
+			float: left;
+			width: 54%;
+			text-align: right;
+			font-size: 14px;
+			font-weight: bold;
+		}
+
+	.bottom .lastFooter .panelLastLeft {
+		float: left;
+		width: 54%;
+		text-align: right;
+		font-size: 12px;
+	}
+
+	.bottom .lastFooter .panelLastRight {
+		float: right;
+		text-align: right;
+		width: 45%;
+		font-size: 12px;
 	}
 }
