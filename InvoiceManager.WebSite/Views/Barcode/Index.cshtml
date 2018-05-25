@@ -7,39 +7,43 @@
 <h2>Code-barres</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-success fa fa-plus"></a>
+	<a asp-action="Create" class="btn btn-success fa fa-plus"></a>
 </p>
-<table class="table">
-    <thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Customer)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Product)
-			</th>
-			<th>Code barre</th>
-			<th></th>
-		</tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.Customer.Name)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Product.Description)
-			</td>
-			<td class="code128">
-				@item.BarcodeId.ToString("00000")
-			</td>
-			<td>
-				<a class="btn btn-warning fa fa-edit" asp-action="Edit" asp-route-id="@item.BarcodeId"></a> |
-				<a class="btn btn-info fa fa-eye" asp-action="Details" asp-route-id="@item.BarcodeId"></a> |
-				<a class="btn btn-danger fa fa-trash" asp-action="Delete" asp-route-id="@item.BarcodeId"></a>
-			</td>
-		</tr>
-}
-    </tbody>
-</table>
+<p>
+	<a class="btn btn-success btn_print" asp-action="Print" target="_blank"><i class="fa fa-print"></i> Imprimer</a>
+</p>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Customer)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Product)
+				</th>
+				<th>Code barre</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Customer.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Product.Description)
+					</td>
+					<td class="code128">
+						@item.BarcodeId.ToString("00000")
+					</td>
+					<td>
+						<a class="btn btn-warning fa fa-edit" asp-action="Edit" asp-route-id="@item.BarcodeId"></a> |
+						<a class="btn btn-info fa fa-eye" asp-action="Details" asp-route-id="@item.BarcodeId"></a> |
+						<a class="btn btn-danger fa fa-trash" asp-action="Delete" asp-route-id="@item.BarcodeId"></a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<FacturationWebSite.Models.Barcode>
+
+<link rel="stylesheet" href="/css/barcode.css" />
+<div id="barcodes-template" class="card-body">
+	@{
+		var lastCustomerName = "";
+
+		foreach (var item in Model)
+		{
+
+			if (item.Customer.Name != lastCustomerName)
+			{
+				<h2>@Html.DisplayFor(modelItem => item.Customer.Name)</h2>
+				lastCustomerName = item.Customer.Name;
+			}
+				<div class="barcode_item">
+					<p>
+						@Html.DisplayFor(modelItem => item.Product.Description)
+					</p>
+					<div class="code128">
+						@item.BarcodeId.ToString("00000")
+					</div>
+					<div>
+						@item.BarcodeId.ToString("00000")
+					</div>
+				</div>
+			
+		}
+	}
+	</h2>
+</div>

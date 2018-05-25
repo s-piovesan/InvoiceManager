@@ -1,41 +1,43 @@
 @model IEnumerable<FacturationWebSite.Models.Delivery>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+	<a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.Date.ToString("D")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DeliveryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DeliveryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DeliveryId">Delete</a>
-            </td>
-        </tr>
+<div id="calendar" style="width:60%">
+
+</div>
+
+<style>
+	.status_Pending {
+		background-color: #199835 !important;
+	}
+
+	.status_Archived {
+		background-color: #dd4242 !important;
+	}
+
+</style>
+
+@section Scripts {
+<script language="JavaScript" type="text/JavaScript">
+		$(document).ready(function () {
+			$('#calendar').fullCalendar({
+				themeSystem: 'bootstrap4',
+				locale: "fr",
+				events: [
+					@foreach (var item in Model)
+					{
+						@Html.Raw("{title:'Livraison', start:'"+ @item.Date.ToString("MM/dd/yyyy") + "', allDay:true, className:'status_" + @item.Status + "'},")
+					}
+				]
+			})
+		});
+</script>
 }
-    </tbody>
-</table>
+

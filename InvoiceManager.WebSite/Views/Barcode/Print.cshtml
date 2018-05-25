@@ -1,0 +1,15 @@
+@model IEnumerable<FacturationWebSite.Models.Barcode>
+@{
+    ViewData["Title"] = "Print";
+}
+
+@await Html.PartialAsync("barcode.cshtml", Model, this.ViewData)
+
+@section Scripts {
+	<script language="JavaScript" type="text/JavaScript">
+		$(document).ready(function () {
+			window.print();
+			window.close();
+		});
+	</script>
+}

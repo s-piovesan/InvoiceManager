@@ -161,5 +161,13 @@ namespace InvoiceManager.WebSite.Controllers
         {
             return _context.Barcode.Any(e => e.BarcodeId == id);
         }
-    }
+
+		// GET: Barcode/Print
+		[ViewLayout("_PrintLayout")]
+		public async Task<IActionResult> Print()
+		{
+			var MvcAppContext = _context.Barcode.Include(b => b.Customer).Include(b => b.Product).OrderBy(b => b.Customer.Name).ThenBy(b => b.Product.Description);
+			return View(await MvcAppContext.ToListAsync());
+		}
+	}
 }
