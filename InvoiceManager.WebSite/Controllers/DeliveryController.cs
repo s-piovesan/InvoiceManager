@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FacturationWebSite.Models;
 using System.Globalization;
+using FacturationWebSite.Models.Enum;
 
 namespace InvoiceManager.WebSite.Controllers
 {
@@ -149,5 +150,23 @@ namespace InvoiceManager.WebSite.Controllers
         {
             return _context.Deliveries.Any(e => e.DeliveryId == id);
         }
-    }
+
+		public async Task<IActionResult> UpdateEvent(int id, int status)
+		{
+			var delivery = await _context.Deliveries.SingleOrDefaultAsync(m => m.DeliveryId == id);
+
+			foreach (var item in Enum.GetValues(typeof(DeliveryStatus)))
+			{
+				if (status == (int)item)
+				{
+					delivery.Status = (DeliveryStatus)item;
+				}
+			}
+
+			_context.Update(delivery);
+			await _context.SaveChangesAsync();
+
+			return(Json(delivery));
+		}
+	}
 }

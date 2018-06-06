@@ -13,6 +13,29 @@
 
 </div>
 
+<div class="panel panel-primary event_form" style="display:none;">
+	<div class="panel-heading">Livraison</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col col-md5">
+				<label>Date</label>
+			</div>
+			<div class="col col-md7">
+				<span class="data_event_date"></span>
+			</div>
+		</div><div class="row">
+			<div class="col col-md5"><label>Status</label></div><div class="col col-md7">
+				<select class="data_event_status">
+					<option value="0" selected>En attente</option>
+					<option value="1">Factur&eacute;</option>
+					<option value="2">Supprim&eacute;</option>
+				</select>
+			</div>
+		</div>
+		<button class="data_button_event_modify">Modifier</button>
+	</div>
+</div>
+
 <style>
 	.status_Pending {
 		background-color: #199835 !important;
@@ -21,7 +44,6 @@
 	.status_Archived {
 		background-color: #dd4242 !important;
 	}
-
 </style>
 
 @section Scripts {
@@ -33,10 +55,60 @@
 				events: [
 					@foreach (var item in Model)
 					{
-						@Html.Raw("{title:'Livraison', start:'"+ @item.Date.ToString("MM/dd/yyyy") + "', allDay:true, className:'status_" + @item.Status + "'},")
+						@Html.Raw("{title:'Livraison', start:'"+ @item.Date.ToString("MM/dd/yyyy") + "', allDay:true, className:'status_" + @item.Status + "', delivery_id:" + @item.DeliveryId + "},")
 					}
-				]
-			})
+				],
+				eventClick: function (calEvent, jsEvent, view) {
+					var sidebarWidth = $("nav.sidebar").width();
+
+					event_selected = calEvent;
+
+					$(".data_event_date").html(calEvent.start.format("LL"));
+					$(".event_form").css({
+						position: "absolute",
+						left: (jsEvent.pageX - sidebarWidth) + 'px',
+						top: jsEvent.pageY + 'px',
+						zIndex: "9999"
+					});
+
+					$(".event_form").show();
+
+				}
+			});
+
+			var event_selected = null;
+
+			$('.data_button_event_modify').off("click").on("click", function () {
+				var dataType = 'application/json; charset=utf-8';
+				var data = {
+					id: event_selected.delivery_id,
+					status: $(".data_event_status").val()
+				}
+
+				$.ajax({
+					type: 'GET',
+					url: '/Delivery/UpdateEvent',
+					dataType: 'json',
+					contentType: dataType,
+					data: data,
+					success: function (result) {
+						switch (result.status) {
+							case 0:
+								event_selected.className = ["status_Pending"];
+								break;
+							case 1:
+								event_selected.className = ["status_Archived"];
+								break;
+							case 2:
+								event_selected.className = ["status_Deleted"];
+								break;
+						}
+
+						$('#calendar').fullCalendar('updateEvent', event_selected);
+						$(".event_form").hide();
+					}
+				});
+			});
 		});
 </script>
 }

@@ -7,3 +7,21 @@
 	font-size: 5em;
 	padding: 0px !important;
 }
+
+h2 {
+	text-align: center;
+}
+
+.barcode_item {
+	display : inline-block;
+	width : 24.5%;
+}
+
+	.barcode_item p {
+		text-align:center;
+	}
+
+	.barcode_item div {
+		text-align: center;
+	}
+
