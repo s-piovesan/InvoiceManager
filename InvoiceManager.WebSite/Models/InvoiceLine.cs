@@ -48,7 +48,7 @@ namespace FacturationWebSite.Models
 		/// <summary>
 		/// Identifiant du produit
 		/// </summary>
-		public int ProductId { get; set; }
+		public int? ProductId { get; set; }
 
 		/// <summary>
 		/// Detail du produit

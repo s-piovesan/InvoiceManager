@@ -98,7 +98,20 @@ namespace InvoiceManager.WebSite.Controllers
                 {
                     _context.Update(product);
                     await _context.SaveChangesAsync();
-                }
+
+					var currentInvoiceIds = _context.Invoice.Where(i => i.Status == FacturationWebSite.Models.Enum.InvoiceStatus.Active).Select(i => i.InvoiceId);
+					var invoiceLines = _context.InvoiceLine.Where(il => currentInvoiceIds.Contains(il.InvoiceId) && il.ProductId == product.ProductId).ToList();
+
+					foreach (var line in invoiceLines)
+					{
+						if (line.Price != product.Price)
+						{
+							line.Price = product.Price;
+							_context.Update(line);
+							await _context.SaveChangesAsync();
+						}
+					}
+				}
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ProductExists(product.ProductId))

@@ -80,30 +80,7 @@
 			color: #F2635F;
 		}
 
-	.panelPart {
-		background-color: #fff;
-	}
-
-	.panel-body {
-		background-color: #3BA4C2 !important;
-		color: #fff;
-		padding: 5px;
-		border: 1px solid #417482 !important;
-	}
-
-	.panel-footer {
-		background-color: #fff;
-	}
-
-		.panel-footer h1 {
-			font-size: 20px;
-			padding: 15px;
-			border: 1px dotted #DDDDDD !important;
-		}
-
-		.panel-footer p {
-			padding: 2px;
-		}
+	
 
 	.tableSection {
 		padding-top: 10px;
@@ -211,5 +188,29 @@
 		text-align: right;
 		width: 45%;
 		font-size: 12px;
+	}
+
+	.InvoiceLine.read .readMode {
+		display: block;
+	}
+
+	.InvoiceLine.read .modificationMode {
+		display: none;
+	}
+
+	.InvoiceLine.update .readMode {
+		display: none;
+	}
+
+	.InvoiceLine.update .modificationMode {
+		display: block;
+	}
+
+	.InvoiceLine .modificationMode {
+		text-align:right;
+	}
+
+	.InvoiceLine .modificationMode input {
+		text-align: right;
 	}
 }

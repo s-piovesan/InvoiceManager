@@ -37,7 +37,7 @@ namespace InvoiceManager.WebSite.Controllers
                 .Include(i => i.Customer)
                 .SingleOrDefaultAsync(m => m.InvoiceId == id);
 
-			var invoiceLine = _context.InvoiceLine.Include(il => il.Delivery).Where(il => il.InvoiceId == invoice.InvoiceId).ToList();
+			var invoiceLine = _context.InvoiceLine.Include(il => il.Delivery).Where(il => il.InvoiceId == invoice.InvoiceId && il.Quantity > 0).OrderBy(il=>il.Delivery.Date).ToList();
 
 			if (invoice == null)
             {
@@ -52,11 +52,17 @@ namespace InvoiceManager.WebSite.Controllers
             invoiceViewModel.Total = invoiceViewModel.Subtotal + invoiceViewModel.Discount;
             invoiceViewModel.Discount = 0;
 
-            return View(invoiceViewModel);
+			ViewData["DateList"] = _context.Deliveries.Where(d => d.Date >= DateTime.Parse(invoice.StartPeriod) && d.Date <= DateTime.Parse(invoice.EndPeriod)).OrderBy(d => d.Date).Select(d => new SelectListItem() { Text = d.Date.ToString("D"), Value = d.DeliveryId.ToString() }).ToList();
+			ViewData["NearestDate"] = _context.Deliveries.Where(d => d.Date > DateTime.Now).OrderBy(d => d.Date).Select(d => d.DeliveryId).FirstOrDefault();
+
+
+			return View(invoiceViewModel);
         }
 
-		// GET: Invoice/Print
-		[ViewLayout("_PrintLayout")]
+		
+
+// GET: Invoice/Print
+[ViewLayout("_PrintLayout")]
 		public async Task<IActionResult> Print(int? id)
 		{
 			if (id == null)
@@ -68,7 +74,7 @@ namespace InvoiceManager.WebSite.Controllers
 				.Include(i => i.Customer)
 				.SingleOrDefaultAsync(m => m.InvoiceId == id);
 
-			var invoiceLine = _context.InvoiceLine.Include(il => il.Delivery).Where(il => il.InvoiceId == invoice.InvoiceId).ToList();
+			var invoiceLine = _context.InvoiceLine.Include(il => il.Delivery).Where(il => il.InvoiceId == invoice.InvoiceId && il.Quantity > 0).OrderBy(il => il.Delivery.Date).ToList();
 
 			if (invoice == null)
 			{
@@ -198,5 +204,42 @@ namespace InvoiceManager.WebSite.Controllers
         {
             return _context.Invoice.Any(e => e.InvoiceId == id);
         }
-    }
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult NewLine(int DeliveryId, string Description, double Price, int Quantity, int InvoiceId)
+		{
+			InvoiceLine returnVal = new InvoiceLine();
+
+			returnVal.InvoiceId = InvoiceId;
+			returnVal.DeliveryId = DeliveryId;
+			returnVal.CreationDate = DateTime.Now;
+			returnVal.Description = Description;
+			returnVal.Quantity = Quantity;
+			returnVal.Price = Price;
+
+			_context.InvoiceLine.Add(returnVal);
+			_context.SaveChanges();
+
+
+			return Json(returnVal);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ModifyLine(int InvoiceLineId, int Quantity)
+		{
+			var InvoiceLine = _context.InvoiceLine.FirstOrDefault(il => il.InvoiceLineId == InvoiceLineId);
+
+			if (InvoiceLine != null)
+			{
+				InvoiceLine.Quantity = Quantity;
+
+				_context.Update(InvoiceLine);
+				await _context.SaveChangesAsync();
+			}
+
+			return Json(true);
+
+		}
+	}
 }

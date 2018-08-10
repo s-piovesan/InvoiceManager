@@ -127,7 +127,7 @@ namespace InvoiceManager.WebSite.Migrations
                     Description = table.Column<string>(nullable: true),
                     InvoiceId = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: true),
                     Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

@@ -14,14 +14,129 @@
 				@await Html.PartialAsync("Invoice.cshtml", Model, this.ViewData)
 			</div>
 		</div>
-		<div class="col-md-6 col-sm-12">
+		<div class="col-md-offset-1 col-md-5 col-sm-12">
 			<div class="fixed-action-btn">
 				<a class="btn btn-success btn_print" asp-action="Print" asp-route-id="@Model.Invoice.InvoiceId" target="_blank"><i class="fa fa-print"></i> Imprimer</a>
 			</div>
+
+			<div >
+				<div class="panel panel-default">
+					<div class="panel-heading">Nouvelle ligne</div>
+					<div class="panel-body">
+						<form method="post" id="addingLineForm">
+							@Html.AntiForgeryToken()
+
+							<div class="row">
+								<div class="col-lg-9">
+									<label asp-for="DeliveryId" class="control-label"></label>
+									@Html.DropDownListFor(m => m.DeliveryId, new SelectList((List<SelectListItem>)ViewData["DateList"], "Value", "Text", ViewData["NearestDate"]))
+								</div>
+								<input input asp-for="InvoiceId" class="form-control" value="@Model.Invoice.InvoiceId" type="hidden" />
+								
+								<div class="col-lg-9">
+									<label asp-for="Description" class="control-label"></label>
+									<input input asp-for="Description" class="form-control" placeholder="Saisir la description..." type="text" />
+								</div>
+
+								<div class="col-lg-9">
+									<label asp-for="Price" class="control-label"></label>
+									<input input asp-for="Price" class="form-control" type="text" />
+								</div>
+
+								<div class="col-lg-9">
+									<label asp-for="Quantity" class="control-label"></label>
+									<input input asp-for="Quantity" class="form-control" type="number" />
+								</div>
+
+								<div class="col-lg-2">
+									<input type="button" value="Ajouter" class="btn btn-primary addLineButton" />
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	
 </div>
 <div>
 	<a class="btn btn-secondary" asp-action="Index">Retour</a>
 </div>
+
+@section Scripts {
+	<script type="text/javascript">
+        function sendData() {
+			var token = $('input[name="__RequestVerificationToken"]', $('#addingLineForm')).val();
+			var myData = { DeliveryId: $("#DeliveryId").val(), Description: $("#Description").val(), Price: $("#Price").val(), Quantity: $("#Quantity").val(), InvoiceId: $("#InvoiceId").val()};
+            var dataWithAntiforgeryToken = $.extend(myData, { '__RequestVerificationToken': token });
+
+            $.ajax({
+				url: "/Invoice/NewLine",
+                type: "POST",
+                data: dataWithAntiforgeryToken,
+                success: function (data) {
+					document.location.reload(true);
+                },
+                error: function () {
+					
+                }
+            });
+		}
+
+		function modifyLineQuantity(InvoiceLineId, newQuantity){
+			
+			var myData = { InvoiceLineId: InvoiceLineId, Quantity: newQuantity };
+			
+			$.ajax({
+				url: "/Invoice/ModifyLine",
+				type: "POST",
+				data: myData,
+				success: function (data) {
+					console.log("success");
+				},
+				error: function () {
+
+				}
+			});
+		}
+		$(document).ready(function () {
+			$(".addLineButton").on('click', sendData);
+
+			$(".InvoiceLine").on("mouseover", function () {
+				$(this).removeClass("read").addClass("update");
+			});
+			$(".InvoiceLine").on("mouseleave", function () {
+				$(this).removeClass("update").addClass("read");
+			});
+			$(".modificationMode input").on("keyup mouseup", function () {
+				var newQuantity = $(this).val();
+				var data_InvoiceLineId = $(this).attr("data_InvoiceLineId");
+
+				var invoiceLine = $('.InvoiceLine[data_InvoiceLineId="' + data_InvoiceLineId + '"]');
+
+				invoiceLine.find(".data_invoiceLineQuantity").html(newQuantity);
+				var price = invoiceLine.find(".data_invoiceLinePrice").attr("data_price");
+				var newTotal = price * newQuantity;
+				var displayedTotal = newTotal.toFixed(2);
+
+				invoiceLine.find(".data_invoiceLineTotal").html(displayedTotal + " " + "&euro;");
+				invoiceLine.find(".data_invoiceLineTotal").attr("data_total", displayedTotal);
+
+				var total = parseFloat(0.0);
+				$(".data_invoiceLineTotal").each(function () {
+					var TotalValue = $(this).attr("data_total");
+					total += parseFloat(TotalValue);
+				});
+
+				var displayedTotal = parseFloat(total).toFixed(2);
+
+				$(".subtotal").html(displayedTotal + " " + "&euro;");
+				$(".total").html(displayedTotal + " " + "&euro;");
+
+				modifyLineQuantity(data_InvoiceLineId, newQuantity);
+			});
+
+		});
+	</script>
+}

@@ -60,11 +60,16 @@
 								lastDeliveryId = invoiceLine.DeliveryId;
 							}
 							Double total = (invoiceLine.Price * invoiceLine.Quantity);
-							<tr>
+							<tr class="InvoiceLine read" data_InvoiceLineId="@invoiceLine.InvoiceLineId">
 								<td>@invoiceLine.Description</td>
-								<td style="text-align:right">@invoiceLine.Quantity</td>
-								<td style="text-align:right">@invoiceLine.Price.ToString("C")</td>
-								<td style="text-align:right">@total.ToString("C")</td>
+								<td style="text-align:right">
+								<span class="readMode data_invoiceLineQuantity">@invoiceLine.Quantity</span>
+								<span class="modificationMode">
+									<input type="number" min="0" class="data_invoiceLineQuantityModification" data_InvoiceLineId="@invoiceLine.InvoiceLineId" value="@invoiceLine.Quantity"/>
+								</span></td>
+								<td style="text-align:right"  class="data_invoiceLinePrice" data_price="@invoiceLine.Price">@invoiceLine.Price.ToString("C")</td>
+								<td style="text-align:right" class="data_invoiceLineTotal" data_total="@total">@total.ToString("C")</td>
+
 							</tr>
 						}
 					}
@@ -80,7 +85,7 @@
 				<div class="lastPanel">
 					TOTAL D&Ucirc;
 				</div>
-				<hr style="clear:both"/>
+				<hr style="clear:both" />
 				<div class="lastFooter">
 					<div class="panelLastLeft">
 						<p>
@@ -91,9 +96,9 @@
 					</div>
 					<div class="panelLastRight">
 						<p>
-							@Model.Subtotal.ToString("C")<br />
+							<span class="subtotal">@Model.Subtotal.ToString("C")</span><br />
 							@Model.Discount.ToString("C")<br />
-							<strong>@Model.Total.ToString("C")</strong>
+							<strong><span class="total">@Model.Total.ToString("C")</span></strong>
 						</p>
 					</div>
 				</div>

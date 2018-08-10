@@ -17,7 +17,7 @@ namespace InvoiceManager.WebSite.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011");
+                .HasAnnotation("ProductVersion", "2.0.3-rtm-10026");
 
             modelBuilder.Entity("FacturationWebSite.Models.Barcode", b =>
                 {
@@ -132,7 +132,7 @@ namespace InvoiceManager.WebSite.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<int>("ProductId");
+                    b.Property<int?>("ProductId");
 
                     b.Property<int>("Quantity");
 
@@ -209,8 +209,7 @@ namespace InvoiceManager.WebSite.Migrations
 
                     b.HasOne("FacturationWebSite.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
         }

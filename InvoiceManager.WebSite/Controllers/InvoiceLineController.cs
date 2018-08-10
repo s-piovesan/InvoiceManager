@@ -161,5 +161,7 @@ namespace InvoiceManager.WebSite.Controllers
         {
             return _context.InvoiceLine.Any(e => e.InvoiceLineId == id);
         }
+
+		
 	}
 }
